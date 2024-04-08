@@ -4,7 +4,8 @@ import 'package:frontend/global.dart';
 import 'package:frontend/routes/name.dart';
 import 'package:frontend/screen/home/bloc/home_bloc.dart';
 import 'package:frontend/screen/home/home.dart';
-
+import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
+import 'package:frontend/screen/predict/predict.dart';
 
 class AppPage {
   static List<PageEntity> routes() {
@@ -14,6 +15,13 @@ class AppPage {
         page: const HomePages(),
         bloc: BlocProvider(
           create: (_) => HomeBloc(),
+        ),
+      ),
+      PageEntity(
+        route: AppRoutes.Predict,
+        page: const PredictPages(),
+        bloc: BlocProvider(
+          create: (_) => PredictBloc(),
         ),
       ),
     ];

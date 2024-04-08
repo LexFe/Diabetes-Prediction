@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -16,10 +15,14 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         designSize: const Size(430, 932),
         builder: (context, child) => MaterialApp(
-            builder: EasyLoading.init(),
-            debugShowCheckedModeBanner: false,
-            onGenerateRoute: AppPage.GenerateRoutsSettings,
-            ),
+          builder: EasyLoading.init(),
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: AppPage.GenerateRoutsSettings,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            fontFamily: 'NotoSansLao',
+          ),
+        ),
       ),
     );
   }

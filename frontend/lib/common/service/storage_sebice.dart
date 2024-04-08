@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:frontend/common/values/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,14 +27,4 @@ class Service {
   String getUserToken() {
     return _prefs.getString(AppConstants.STORAGE_USER_TOKEN_KEY) ?? '';
   }
-
-  // ProfileModel getProfileModel() {
-  //   var profileOffline =
-  //       _prefs.getString(AppConstants.STORAGE_USER_PROFLIE_KEY) ?? "";
-  //   if (profileOffline.isNotEmpty) {
-  //     return ProfileModel.fromJson(jsonDecode(profileOffline));
-  //   } else {
-  //     return ProfileModel();
-  //   }
-  // }
 }

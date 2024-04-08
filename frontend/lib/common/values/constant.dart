@@ -1,24 +1,5 @@
 class AppConstants {
-  static const String baseUrl = "http://188.166.181.240:5558/api/v1/";
-
-  //static const String baseUrl = "http://192.168.3.52:5558/api/v1/";
-
-  static const String baseUrlImage =
-      "http://188.166.181.240:5558/api/v1/image?image=market&image_id=";
-
-  static const String locales = 'assets/locales';
-
-  static const String baseUrlSlideImg =
-      "http://188.166.181.240:5558/api/v1/image?image=slider&image_id=";
-
-  static const String baseUrlCategory =
-      "http://188.166.181.240:5558/api/v1/image?image=category&image_id=";
-
-  static const String baseUrlProduct =
-      "http://188.166.181.240:5558/api/v1/image?image=product&image_id=";
-
-  static const String baseUrlUser =
-      "http://188.166.181.240:5558/api/v1/image?image=customer&image_id=";
+  static const String baseUrl = "http://127.0.0.1:8000/";
 
   // static const String baseUrlFavorites =
   //   "http://188.166.181.240:5558/api/v1/image?image=customer&image_id=";
