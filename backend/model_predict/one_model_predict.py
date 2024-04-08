@@ -1,14 +1,14 @@
-import pickle
+import joblib
 import numpy as np
 import warnings
 
 warnings.filterwarnings("ignore", message="Trying to unpickle estimator.*")
 
-def predict_loan_approval(pregnancies : int, glucose : int, bloodPressure : int, skinthickness : int, insulin : int, diabetespedigreefunction : float, bmi : float ,age : int):
-    with open('model_predict//one_model_predict.py', 'rb') as f:
-        model = pickle.load(f)
+def predict_loan_approval(pregnancies: int, glucose: int, bloodPressure: int, skinthickness: int, insulin: int, diabetespedigreefunction: float, bmi: float, age: int) -> str:
+    # Load the trained model
+    loaded_model = joblib.load('model_predict/knn_diabetes_model.pkl')
 
-    new_data = np.array([[pregnancies, glucose, bloodPressure, skinthickness, insulin,bmi, diabetespedigreefunction, age]])
-    prediction = model.predict(new_data)
+    new_data = np.array([[pregnancies, glucose, bloodPressure, skinthickness, insulin, bmi, diabetespedigreefunction, age]])
 
+    prediction = loaded_model.predict(new_data)
     return "Yes" if prediction[0] == 1 else "No"

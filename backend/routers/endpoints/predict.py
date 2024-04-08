@@ -74,6 +74,7 @@ def delete_data_predict(id: int, db: Session = Depends(get_db)):
     
 @router_token.post('/one-predict')
 def get_one_predict(data: LoanPredictionData):
+    print(data)
     prediction = predict_loan_approval(data.pregnancies, data.glucose, data.bloodPressure, data.skinthickness, data.insulin, data.diabetespedigreefunction, data.bmi, data.age)
     return {"result": prediction}
     
@@ -92,34 +93,20 @@ def get_all_predict(db: Session = Depends(get_db)):
 
 
         # Predict loan approval
-        prediction = predict_loan_approval(predict.gender, predict.married, predict.dependents, predict.education, predict.self_employed,
-                                           predict.applicant_income, predict.coapplicant_income,
-                                           predict.loan_amount, predict.loan_amount_term,
-                                           predict.credit_history, predict.property_area)
-        
-        gender = 'ຊາຍ' if predict.gender == 1 else 'ຍິງ'
-        married = 'ແຕ່ງດອງແລ້ວ' if predict.married == 1 else 'ບໍ່ແຕ່ງດອງ'
-        education = 'ບໍ່ຈົບ' if predict.education == 1 else 'ຈົບ'
-        self_employed = 'ມີ' if predict.self_employed == 1 else 'ບໍ່ມີ'
-        property_area = 'ໃນຕົວເມືອງ' if predict.property_area == 1 else ('ໃກ້ຕົວເມືອງ' if predict.property_area == 2 else 'ຊົນນະບົດ')
-        credit_history = 'ດີ' if predict.credit_history == 1 else 'ບໍ່ດີ'
-        prediction = 'ອະນຸຍາດ' if prediction == 'Approved' else 'ບໍ່ອະນຸຍາດ'
+        prediction = predict_loan_approval(predict.pregnancies, predict.glucose, predict.bloodPressure, predict.skinthickness, predict.insulin, predict.diabetespedigreefunction, predict.bmi, predict.age)
         
         predictions.append({"id": predict.id,
                             "name" :predict.name,
-                            "gender" : gender,
-                            "age" : predict.age ,
-                            "phone": predict.phone,
-                            "married": married,
-                            "education": education,
-                            "self_employed": self_employed,
-                            "applicant_income": predict.applicant_income,
-                            "coapplicant_income": predict.coapplicant_income,
-                            "loan_amount": predict.loan_amount,
-                            "loan_amount_term": predict.loan_amount_term,
-                            "credit_history": credit_history,
-                            "property_area": property_area,
-                            "prediction": prediction})
+                            "age": predict.age,
+                            "pregnancies": predict.pregnancies,
+                            "glucose": predict.glucose,
+                            "bloodPressure": predict.bloodPressure,
+                            "skinthickness": predict.skinthickness,
+                            "insulin": predict.insulin,
+                            "diabetespedigreefunction": predict.diabetespedigreefunction,
+                            "bmi": predict.bmi,
+                            "predict": prediction
+                            })
 
     return  predictions
 
