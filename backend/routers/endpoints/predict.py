@@ -27,35 +27,11 @@ router_token = APIRouter(
 @router_token.get('/add-get-predict')
 def get_data_predict(db: Session = Depends(get_db)):
     data = db.query(UserPredict).all()
-    # Convert integer values back to their respective strings
-    converted_data = []
-    for item in data:
-        item_dict = item.__dict__
-        item_dict['gender'] = 'ຊາຍ' if item_dict['gender'] == 1 else 'ຍິງ'
-        item_dict['married'] = 'ແຕ່ງດອງແລ້ວ' if item_dict['married'] == 1 else 'ບໍ່ແຕ່ງດອງ'
-        item_dict['education'] = 'ບໍ່ຈົບ' if item_dict['education'] == 1 else 'ຈົບ'
-        item_dict['self_employed'] = 'ມີ' if item_dict['self_employed'] == 1 else 'ບໍ່ມີ'
-        item_dict['credit_history'] = 'ດີ' if item_dict['credit_history'] == 1 else 'ບໍ່ດີ'
-        item_dict['property_area'] = 'ໃນຕົວເມືອງ' if item_dict['property_area'] == 1 else ('ໃກ້ຕົວເມືອງ' if item_dict['property_area'] == 2 else 'ຊົນນະບົດ')
-        
-        converted_data.append(item_dict)
-    return converted_data
+    return data
 
 @router_token.post('/add-data-predict')
 def add_data_predict(data: UserPredictSchema , db: Session = Depends(get_db)):
-    
-    gender = 1 if data.gender == 'ຊາຍ' else 0
-    married = 1 if data.married == 'ແຕ່ງດອງແລ້ວ' else 0
-    education = 1 if data.education == 'ບໍ່ຈົບ' else 0
-    self_employed = 1 if data.self_employed == 'ມີ' else 0
-    credit_history = 1 if data.credit_history == 'ດີ' else 0
-    property_area = 2 if data.property_area == 'ໃນຕົວເມືອງ' else (2 if data.property_area == 'ໃກ້ຕົວເມືອງ' else 0)
-    data.gender = gender
-    data.married = married
-    data.education = education
-    data.self_employed = self_employed
-    data.property_area = property_area
-    data.credit_history = credit_history
+
     new_user = UserPredict(**data.dict())
     db.add(new_user)
     db.commit()
@@ -69,20 +45,14 @@ def update_data_predict(data: UserEditPredictSchema , db: Session = Depends(get_
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found.")
     
     user.name = data.name
-    user.phone = data.phone
     user.age = data.age
-    user.gender = 1 if data.gender == 'ຊາຍ' else 0
-    user.married = 1 if data.married == 'ແຕ່ງດອງແລ້ວ' else 0
-    user.education = 1 if data.education == 'ບໍ່ບໍ່ຈົບ' else 0
-    user.self_employed = 1 if data.self_employed == 'ມີ' else 0
-    user.credit_history = 1 if data.credit_history == 'ດີ' else 0
-    user.property_area = 2 if data.property_area == 'ໃນຕົວເມືອງ' else (2 if data.property_area == 'ໃກ້ຕົວເມືອງ' else 0)
-    user.applicant_income = data.applicant_income
-    user.coapplicant_income = data.coapplicant_income
-    user.loan_amount = data.loan_amount
-    user.loan_amount_term = data.loan_amount_term
-    
-    
+    user.pregnancies = data.pregnancies
+    user.glucose = data.glucose
+    user.bloodPressure = data.bloodPressure
+    user.skinthickness = data.skinthickness
+    user.insulin = data.insulin
+    user.diabetespedigreefunction = data.diabetespedigreefunction
+    user.bmi = data.bmi
     
     # Commit changes to the database
     db.commit()
@@ -104,21 +74,7 @@ def delete_data_predict(id: int, db: Session = Depends(get_db)):
     
 @router_token.post('/one-predict')
 def get_one_predict(data: LoanPredictionData):
-    gender = 1 if data.gender == 'ຊາຍ' else 0
-    married = 1 if data.married == 'ແຕ່ງດອງແລ້ວ' else 0
-    dependents = data.dependents
-    education =  1 if data.education == 'ບໍ່ບໍ່ຈົບ' else 0
-    self_employed =  1 if data.self_employed == 'ມີ' else 0
-    applicant_income = data.applicant_income
-    coapplicant_income = data.coapplicant_income
-    loan_amount = data.loan_amount
-    loan_amount_term = data.loan_amount_term
-    credit_history = 1 if data.credit_history == 'ດີ' else 0
-    property_area = 2 if data.property_area == 'ໃນຕົວເມືອງ' else (2 if data.property_area == 'ໃກ້ຕົວເມືອງ' else 0)
-
-    prediction = predict_loan_approval(gender,married, dependents,education, self_employed,
-                                            applicant_income, coapplicant_income, loan_amount, loan_amount_term,
-                                            credit_history, property_area)
+    prediction = predict_loan_approval(data.pregnancies, data.glucose, data.bloodPressure, data.skinthickness, data.insulin, data.diabetespedigreefunction, data.bmi, data.age)
     return {"result": prediction}
     
     
