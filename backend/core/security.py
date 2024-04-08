@@ -17,28 +17,6 @@ SECRET_KEY = "zta$s!s75ug0$rf(1zd2)z2ospv-ekjpvh6dyp1*5*)524#zse"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 900000
 
-# class JWTAuthenticationBackend:
-#     async def authenticate(self,conn):
-#         token = await self.oauth2_scheme(request)
-#         credentials_exception = HTTPException(
-#             status_code = status.HTTP_401_UNAUTHORIZED,
-#             detail = "Could not validate credentials",
-#             headers = {"WWW-Authenticate": "Bearer"},
-#         )
-#         return verify_access_token(token, credentials_exception)
-    
-    
-
-
-# async def create_refresh_token(data):
-#     return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-
-# def get_token_payload(token):
-#     try:
-#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-#     except JWTError:
-#         return None
-#     return payload
 
 async def create_access_token(data: dict):
     to_encode = data.copy()
@@ -117,17 +95,4 @@ def generate_token(payload: dict, secret: str, algo: str, expiry: timedelta):
 def is_password_strong_enough(password: str) -> bool:
     if len(password) < 6:
         return False
-
-    # if not any(char.isupper() for char in password):
-    #     return False
-
-    # if not any(char.islower() for char in password):
-    #     return False
-
-    # if not any(char.isdigit() for char in password):
-    #     return False
-
-    # if not any(char in SPECIAL_CHARACTERS for char in password):
-    #     return False
-
     return True

@@ -30,7 +30,7 @@ async def create_user_account(data, session):
     user.name = data.name
     user.email = data.email
     user.password = hash_password(data.password)
-    user.role =  data.role
+    user.role =  "admin"
     user.phone = data.phone
     user.is_active = True
     user.updated_at = datetime.utcnow()
