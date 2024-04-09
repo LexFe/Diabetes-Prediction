@@ -24,7 +24,7 @@ router_token = APIRouter(
 )
 
 
-@router_token.get('/add-get-predict')
+@router.get('/add-get-predict')
 def get_data_predict(db: Session = Depends(get_db)):
     data = db.query(UserPredict).all()
     return data
@@ -72,19 +72,19 @@ def delete_data_predict(id: int, db: Session = Depends(get_db)):
     
 
     
-@router_token.post('/one-predict')
+@router.post('/one-predict')
 def get_one_predict(data: LoanPredictionData):
     print(data)
     prediction = predict_loan_approval(data.pregnancies, data.glucose, data.bloodPressure, data.skinthickness, data.insulin, data.diabetespedigreefunction, data.bmi, data.age)
     return {"result": prediction}
     
     
-@router_token.get('/one-predict')
+@router.get('/one-predict')
 def get_all_predict(id:int , db: Session = Depends(get_db)):
     data = db.query(UserPredict).filter(UserPredict.id == id).first()
     return data
     
-@router_token.get('/all-predict')
+@router.get('/all-predict')
 def get_all_predict(db: Session = Depends(get_db)):
     data = db.query(UserPredict).all()
     predictions = []

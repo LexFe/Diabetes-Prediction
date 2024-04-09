@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/global.dart';
 import 'package:frontend/routes/name.dart';
+import 'package:frontend/screen/admin/admin.dart';
+import 'package:frontend/screen/admin/bloc/admin_bloc.dart';
 import 'package:frontend/screen/home/bloc/home_bloc.dart';
 import 'package:frontend/screen/home/home.dart';
+import 'package:frontend/screen/main_manage/bloc/main_manage_bloc.dart';
+import 'package:frontend/screen/main_manage/main_manage.dart';
 import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
 import 'package:frontend/screen/predict/predict.dart';
+import 'package:frontend/screen/predists/bloc/predicts_bloc.dart';
+import 'package:frontend/screen/predists/predicts.dart';
 
 class AppPage {
   static List<PageEntity> routes() {
@@ -22,6 +28,27 @@ class AppPage {
         page: const PredictPages(),
         bloc: BlocProvider(
           create: (_) => PredictBloc(),
+        ),
+      ),
+      PageEntity(
+        route: AppRoutes.Predicts,
+        page: const PredictsPages(),
+        bloc: BlocProvider(
+          create: (_) => PredictsBloc(),
+        ),
+      ),
+      PageEntity(
+        route: AppRoutes.MainManages,
+        page: const MainManagePages(),
+        bloc: BlocProvider(
+          create: (_) => MainManageBloc(),
+        ),
+      ),
+      PageEntity(
+        route: AppRoutes.Admin,
+        page: const AdminPages(),
+        bloc: BlocProvider(
+          create: (_) => AdminBloc(),
         ),
       ),
     ];

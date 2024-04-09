@@ -1,9 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/controller/predicts_controller.dart';
-import 'package:frontend/routes/name.dart';
+import 'package:frontend/controller/admin_controller.dart';
 
-class HomePages extends StatelessWidget {
-  const HomePages({super.key});
+class MainManagePages extends StatelessWidget {
+  const MainManagePages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +11,10 @@ class HomePages extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         title: const Text(
-          'ໜ້າຫຼັກ',
+          'ຈັດການຂໍ້ມູນ',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -29,28 +29,16 @@ class HomePages extends StatelessWidget {
         ),
         children: [
           buildItem(
-              title: "ວິເຄາະແບບດຽວ",
-              iconData: Icons.person,
+              title: "ຈັດການຂໍ້ມູນຜູ້ໃຊ້",
+              iconData: Icons.supervised_user_circle,
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.Predict);
+               
               }),
           buildItem(
-              title: "ວິເຄາະແບບຫຼາຍ",
-              iconData: Icons.group,
+              title: "ຈັດການຂໍ້ມູນແອັດມິນ",
+              iconData: Icons.admin_panel_settings,
               onTap: () {
-                PredictsController(context: context).handleGetPredict();
-              }),
-          buildItem(
-              title: "ແນະນຳ",
-              iconData: Icons.info,
-              onTap: () {
-                Navigator.pushNamed(context, '/main-manages');
-              }),
-          buildItem(
-              title: "ຈັດການຂໍ້ມູນ",
-              iconData: Icons.manage_accounts,
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.MainManages );
+                AdminController(context: context).handleGetAdmin();
               }),
         ],
       ),
