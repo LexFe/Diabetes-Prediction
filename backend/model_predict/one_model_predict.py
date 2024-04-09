@@ -11,4 +11,4 @@ def predict_loan_approval(pregnancies: int, glucose: int, bloodPressure: int, sk
     new_data = np.array([[pregnancies, glucose, bloodPressure, skinthickness, insulin, bmi, diabetespedigreefunction, age]])
 
     prediction = loaded_model.predict(new_data)
-    return "Yes" if prediction[0] == 1 else "No"
+    return "ມີໂອກາດເປັນໂລກເບົາຫວານ" if prediction[0] == 1 else "ບໍ່ມີໂອກາດເປັນໂລກເບົາຫວານ"
