@@ -56,7 +56,7 @@ async def refrech_token(refresh_token =  Header(), db: Session = Depends(get_db)
 #     return UserOutList(data=data)
 
 @router.get("/all")
-def get_data(db: Session = Depends(get_db), _: bool = Depends(RoleChecker(allowed_roles=["admin"]))):
+def get_data(db: Session = Depends(get_db)):
     users = db.query(User).all()
     data = []
     for user in users:
@@ -71,8 +71,8 @@ def get_data(db: Session = Depends(get_db), _: bool = Depends(RoleChecker(allowe
 
     return data
 
-@router_token.put("/update", response_model=UserOut, status_code=200)
-def update_user(data: UserEdit, db: Session = Depends(get_db), _: bool = Depends(RoleChecker(allowed_roles=["admin"]))):
+@router.put("/update", response_model=UserOut, status_code=200)
+def update_user(data: UserEdit, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == data.id).first()
     if not user:
         raise HTMLResponse(status_code=404, content="User not found.")
@@ -85,8 +85,8 @@ def update_user(data: UserEdit, db: Session = Depends(get_db), _: bool = Depends
     db.refresh(user)
     return user
 
-@router_token.delete("/delete", status_code=200)
-def delete_user(id: str, db: Session = Depends(get_db), _: bool = Depends(RoleChecker(allowed_roles=["admin"]))):
+@router.delete("/delete", status_code=200)
+def delete_user(id: str, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == id).first()
     db.delete(user)
     db.commit()
