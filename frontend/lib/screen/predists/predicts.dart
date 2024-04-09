@@ -26,14 +26,29 @@ class PredictsPages extends StatelessWidget {
       body: BlocBuilder<PredictsBloc, PredictsState>(
         builder: (context, state) {
           return ListView.builder(
+              padding: const EdgeInsets.all(10),
               physics: const BouncingScrollPhysics(),
               itemCount: state.predictsModel.length,
               itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  child: ListTile(
-                    title: Text(state.predictsModel[index].name ?? ''),
-                    subtitle: Text(state.predictsModel[index].predict ?? ''),
+                return Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Card(
+                    elevation: 2,
+                    color: Colors.white,
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.account_circle_rounded,
+                        color: Colors.blue,
+                        size: 40,
+                      ),
+                      title: Text(state.predictsModel[index].name ?? ''),
+                      subtitle: Text(state.predictsModel[index].predict ?? ''),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.black26,
+                        size: 20,
+                      ),
+                    ),
                   ),
                 );
               });
