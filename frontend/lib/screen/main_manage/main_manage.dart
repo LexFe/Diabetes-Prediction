@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/controller/admin_controller.dart';
+import 'package:frontend/routes/name.dart';
 
 class MainManagePages extends StatelessWidget {
   const MainManagePages({super.key});
@@ -21,6 +22,15 @@ class MainManagePages extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, AppRoutes.Home, (route) => false);
+            },
+          ),
+        ],
       ),
       body: GridView(
         physics: const BouncingScrollPhysics(),

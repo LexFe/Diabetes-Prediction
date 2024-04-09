@@ -4,6 +4,7 @@ import 'package:frontend/screen/home/bloc/home_bloc.dart';
 import 'package:frontend/screen/main_manage/bloc/main_manage_bloc.dart';
 import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
 import 'package:frontend/screen/predists/bloc/predicts_bloc.dart';
+import 'package:frontend/screen/recomment/bloc/recomment_bloc.dart';
 
 class AppBlocProvider {
   static get allBlocProvider => [
@@ -21,6 +22,9 @@ class AppBlocProvider {
         ),
         BlocProvider(
           create: (context) => AdminBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RecommentBloc(),
         ),
       ];
 }

@@ -12,6 +12,8 @@ import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
 import 'package:frontend/screen/predict/predict.dart';
 import 'package:frontend/screen/predists/bloc/predicts_bloc.dart';
 import 'package:frontend/screen/predists/predicts.dart';
+import 'package:frontend/screen/recomment/bloc/recomment_bloc.dart';
+import 'package:frontend/screen/recomment/recomment.dart';
 
 class AppPage {
   static List<PageEntity> routes() {
@@ -49,6 +51,13 @@ class AppPage {
         page: const AdminPages(),
         bloc: BlocProvider(
           create: (_) => AdminBloc(),
+        ),
+      ),
+      PageEntity(
+        route: AppRoutes.Recomment,
+        page: const RecommentPages(),
+        bloc: BlocProvider(
+          create: (_) => RecommentBloc(),
         ),
       ),
     ];

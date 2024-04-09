@@ -12,6 +12,7 @@ class HomePages extends StatelessWidget {
         backgroundColor: Colors.blue,
         surfaceTintColor: Colors.blue,
         centerTitle: true,
+        automaticallyImplyLeading: false,
         elevation: 0,
         title: const Text(
           'ໜ້າຫຼັກ',
@@ -47,7 +48,7 @@ class HomePages extends StatelessWidget {
               title: "ແນະນຳ",
               iconData: Icons.info,
               onTap: () {
-                Navigator.pushNamed(context, '/main-manages');
+                Navigator.pushNamed(context, AppRoutes.Recomment);
               }),
           buildItem(
               title: "ຈັດການຂໍ້ມູນ",

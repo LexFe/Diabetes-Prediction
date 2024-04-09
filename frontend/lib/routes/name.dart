@@ -13,4 +13,7 @@ class AppRoutes {
 
   // ignore: constant_identifier_names
   static const  Admin =  "/admin";
+
+  // ignore: constant_identifier_names
+  static const Recomment = "/recomment";
 }
