@@ -9,7 +9,7 @@ class AdminController {
 
   Future<void> handleGetAdmin() async {
     try {
-      Response response = await HttpUtil().get('user/all');
+      Response response = await HttpUtil().get('/user/all');
       if (response.statusCode == 200) {
         print(response.data);
         Fluttertoast.showToast(msg: 'Get admin success');

@@ -10,6 +10,10 @@ class PredictsPages extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: Colors.blue,
+        surfaceTintColor: Colors.blue,
+        centerTitle: true,
+        foregroundColor: Colors.white,
         title: const Text(
           'ວິເຄາະແບບຫຼາຍ',
           style: TextStyle(

@@ -9,6 +9,9 @@ class HomePages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
+        surfaceTintColor: Colors.blue,
+        centerTitle: true,
         elevation: 0,
         title: const Text(
           'ໜ້າຫຼັກ',
@@ -50,7 +53,7 @@ class HomePages extends StatelessWidget {
               title: "ຈັດການຂໍ້ມູນ",
               iconData: Icons.manage_accounts,
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.MainManages );
+                Navigator.pushNamed(context, AppRoutes.MainManages);
               }),
         ],
       ),

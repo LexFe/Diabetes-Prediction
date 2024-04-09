@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PredictPages extends StatelessWidget {
@@ -8,6 +7,10 @@ class PredictPages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
+        surfaceTintColor: Colors.blue,
+        foregroundColor: Colors.white,
+        centerTitle: true,
         elevation: 0,
         title: const Text(
           'ວິເຄາະແບບດຽວ',

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/controller/admin_controller.dart';
 
@@ -9,6 +8,10 @@ class MainManagePages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
+        surfaceTintColor: Colors.blue,
+        foregroundColor: Colors.white,
+        centerTitle: true,
         elevation: 0,
         title: const Text(
           'ຈັດການຂໍ້ມູນ',
@@ -31,9 +34,7 @@ class MainManagePages extends StatelessWidget {
           buildItem(
               title: "ຈັດການຂໍ້ມູນຜູ້ໃຊ້",
               iconData: Icons.supervised_user_circle,
-              onTap: () {
-               
-              }),
+              onTap: () {}),
           buildItem(
               title: "ຈັດການຂໍ້ມູນແອັດມິນ",
               iconData: Icons.admin_panel_settings,
