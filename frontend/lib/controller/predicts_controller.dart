@@ -22,7 +22,7 @@ class PredictsController {
         List<PredictsModel> predictsModel =
             dynamicList.map((json) => PredictsModel.fromJson(json)).toList();
         if (context.mounted) {
-          Navigator.pushNamed(context, AppRoutes.Predicts);
+        
           context
               .read<PredictsBloc>()
               .add(PredictsFetch(predictsModel: predictsModel));

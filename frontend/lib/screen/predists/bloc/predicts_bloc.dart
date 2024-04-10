@@ -15,5 +15,13 @@ class PredictsBloc extends Bloc<PredictsEvent, PredictsState> {
     on<ChangeStatus>((event, emit) {
       emit(state.copyWith(status: event.status));
     });
+
+    on<SearchPredict>((event, emit) {
+      final List<PredictsModel> predictsModel = state.predictsModel
+          .where((element) =>
+              element.name!.toLowerCase().contains(event.search.toLowerCase()))
+          .toList();
+      emit(state.copyWith(predictsModelSearch: predictsModel));
+    });
   }
 }

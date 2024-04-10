@@ -22,3 +22,11 @@ class ChangeStatus extends PredictsEvent {
   @override
   List<Object> get props => [status];
 }
+
+class SearchPredict extends PredictsEvent {
+  final String search;
+  const SearchPredict({required this.search});
+
+  @override
+  List<Object> get props => [search];
+}

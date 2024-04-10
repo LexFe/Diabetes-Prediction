@@ -43,7 +43,7 @@ class HomePages extends StatelessWidget {
               title: "ວິເຄາະແບບຫຼາຍ",
               iconData: Icons.group,
               onTap: () {
-                PredictsController(context: context).handleGetPredict();
+                Navigator.pushNamed(context, AppRoutes.Predicts);
               }),
           buildItem(
               title: "ແນະນຳ",
