@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/controller/predict_controller.dart';
+import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
 
 class PredictPages extends StatelessWidget {
   const PredictPages({super.key});
@@ -41,49 +44,78 @@ class PredictPages extends StatelessWidget {
                 context: context,
                 labelText: 'ຈຳນວນຖືພາ',
                 hintText: 'ຈຳນວນຖືພາ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Pregnancies(pregnancies: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄ່ານ້ຳຕານ',
                 hintText: 'ຄ່ານ້ຳຕານ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Glucose(glucose: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄວາມ​ດັນ​ເລືອດ',
                 hintText: 'ຄວາມ​ດັນ​ເລືອດ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(BloodPressure(bloodPressure: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄວາມໜາຂອງຜິວໜັງ',
                 hintText: 'ຄວາມໜາຂອງຜິວໜັງ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(SkinThickness(skinThickness: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄ່າອີນຊູລິນ',
                 hintText: 'ຄ່າອີນຊູລິນ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Insulin(insulin: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄວາມສ່ຽງຈາກກຳມະພັນ',
                 hintText: 'ຄວາມສ່ຽງຈາກກຳມະພັນ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<PredictBloc>().add(DiabetesPedigreeFunction(
+                      diabetesPedigreeFunction: double.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'bmi',
                 hintText: 'bmi',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Bmi(bmi: double.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ອາຍຸ',
                 hintText: 'ອາຍຸ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<PredictBloc>().add(Age(age: int.parse(value)));
+                },
               ),
             ],
           ),
@@ -94,7 +126,9 @@ class PredictPages extends StatelessWidget {
             height: 60,
             width: 400,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                PredictController(context: context).handlePredict();
+              },
               style: ElevatedButton.styleFrom(
                 primary: Colors.blue,
                 shape: RoundedRectangleBorder(
@@ -140,6 +174,19 @@ class PredictPages extends StatelessWidget {
         SizedBox(
           height: 60,
           child: TextFormField(
+            controller: TextEditingController.fromValue(
+              TextEditingValue(
+                text: context.read<PredictBloc>().state.pregnancies.toString(),
+                selection: TextSelection.collapsed(
+                  offset: context
+                      .read<PredictBloc>()
+                      .state
+                      .pregnancies
+                      .toString()
+                      .length,
+                ),
+              ),
+            ),
             inputFormatters: <TextInputFormatter>[
               LengthLimitingTextInputFormatter(10),
               FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
