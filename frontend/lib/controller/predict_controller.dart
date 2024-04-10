@@ -36,22 +36,30 @@ class PredictController {
     }
     try {
       Response response = await HttpUtil().post('/predict/one-predict', data: {
-        'pregnancies': pregnancies,
-        'glucose': glucose,
-        'bloodPressure': bloodPressure,
-        'skinThickness': skinThickness,
-        'insulin': insulin,
-        'bmi': bmi,
-        'age': age,
-        'diabetesPedigreeFunction': diabetesPedigreeFunction,
+        "age": age,
+        "pregnancies": pregnancies,
+        "glucose": glucose,
+        "bloodPressure": bloodPressure,
+        "skinthickness": skinThickness,
+        "insulin": insulin,
+        "diabetespedigreefunction": diabetesPedigreeFunction,
+        "bmi": bmi
       });
+
       if (response.statusCode == 200) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('ກວດສອບສຳເລັດ'),
-          ),
-        );
+        if (context.mounted) {
+          // context.read<PredictBloc>().add(const ResetState());
+          showDialog(
+            useSafeArea: true,
+            context: context,
+            builder: (_) => AlertDialog(
+              alignment: AlignmentDirectional.center,
+              surfaceTintColor: Colors.white,
+              title: const Text("ຄ່າກາານວິເຄາະ"),
+              content: Text(response.data['result']),
+            ),
+          );
+        }
       } else {
         // ignore: use_build_context_synchronously
         print(response.data);

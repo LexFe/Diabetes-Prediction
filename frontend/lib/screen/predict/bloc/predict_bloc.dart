@@ -33,5 +33,17 @@ class PredictBloc extends Bloc<PredictEvent, PredictState> {
       emit(state.copyWith(
           diabetesPedigreeFunction: event.diabetesPedigreeFunction));
     });
+
+    on<ResetState>((event, emit) {
+      emit(state.copyWith(
+          pregnancies: 0,
+          glucose: 0,
+          bloodPressure: 0,
+          skinThickness: 0,
+          insulin: 0,
+          bmi: 0.0,
+          age: 0,
+          diabetesPedigreeFunction: 0.0));
+    });
   }
 }

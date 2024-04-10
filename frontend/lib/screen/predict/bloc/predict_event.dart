@@ -78,3 +78,10 @@ class Age extends PredictEvent {
   @override
   List<Object> get props => [age];
 }
+
+class ResetState extends PredictEvent {
+  const ResetState();
+
+  @override
+  List<Object> get props => [];
+}

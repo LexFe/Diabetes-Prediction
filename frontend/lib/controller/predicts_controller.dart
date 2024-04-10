@@ -21,7 +21,6 @@ class PredictsController {
         final List dynamicList = response.data as List;
         List<PredictsModel> predictsModel =
             dynamicList.map((json) => PredictsModel.fromJson(json)).toList();
-        print('predictsModel: $predictsModel');
         if (context.mounted) {
           Navigator.pushNamed(context, AppRoutes.Predicts);
           context

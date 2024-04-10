@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/controller/predict_controller.dart';
+import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
 
 class PredictPages extends StatelessWidget {
   const PredictPages({super.key});
@@ -38,15 +41,13 @@ class PredictPages extends StatelessWidget {
             childAspectRatio: 1.8,
             children: [
               buildPhoneTextFrom(
-                context: context,
-                labelText: 'ຈຳນວນຖືພາ',
-                hintText: 'ຈຳນວນຖືພາ',
-                onChanged: (value) {
-                  context
-                      .read<PredictBloc>()
-                      .add(Pregnancies(pregnancies: int.parse(value)));
-                },
-              ),
+                  context: context,
+                  labelText: 'ຈຳນວນຖືພາ',
+                  hintText: 'ຈຳນວນຖືພາ',
+                  onChanged: (value) {
+                    context.read<PredictBloc>().add(
+                        Pregnancies(pregnancies: int.tryParse(value) ?? 0));
+                  }),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄ່ານ້ຳຕານ',
@@ -54,7 +55,7 @@ class PredictPages extends StatelessWidget {
                 onChanged: (value) {
                   context
                       .read<PredictBloc>()
-                      .add(Glucose(glucose: int.parse(value)));
+                      .add(Glucose(glucose: int.tryParse(value) ?? 0));
                 },
               ),
               buildPhoneTextFrom(
@@ -62,9 +63,8 @@ class PredictPages extends StatelessWidget {
                 labelText: 'ຄວາມ​ດັນ​ເລືອດ',
                 hintText: 'ຄວາມ​ດັນ​ເລືອດ',
                 onChanged: (value) {
-                  context
-                      .read<PredictBloc>()
-                      .add(BloodPressure(bloodPressure: int.parse(value)));
+                  context.read<PredictBloc>().add(
+                      BloodPressure(bloodPressure: int.tryParse(value) ?? 0));
                 },
               ),
               buildPhoneTextFrom(
@@ -72,9 +72,8 @@ class PredictPages extends StatelessWidget {
                 labelText: 'ຄວາມໜາຂອງຜິວໜັງ',
                 hintText: 'ຄວາມໜາຂອງຜິວໜັງ',
                 onChanged: (value) {
-                  context
-                      .read<PredictBloc>()
-                      .add(SkinThickness(skinThickness: int.parse(value)));
+                  context.read<PredictBloc>().add(
+                      SkinThickness(skinThickness: int.tryParse(value) ?? 0));
                 },
               ),
               buildPhoneTextFrom(
@@ -84,7 +83,7 @@ class PredictPages extends StatelessWidget {
                 onChanged: (value) {
                   context
                       .read<PredictBloc>()
-                      .add(Insulin(insulin: int.parse(value)));
+                      .add(Insulin(insulin: int.tryParse(value) ?? 0));
                 },
               ),
               buildPhoneTextFrom(
@@ -93,7 +92,7 @@ class PredictPages extends StatelessWidget {
                 hintText: 'ຄວາມສ່ຽງຈາກກຳມະພັນ',
                 onChanged: (value) {
                   context.read<PredictBloc>().add(DiabetesPedigreeFunction(
-                      diabetesPedigreeFunction: double.parse(value)));
+                      diabetesPedigreeFunction: double.tryParse(value) ?? 0.0));
                 },
               ),
               buildPhoneTextFrom(
@@ -103,7 +102,7 @@ class PredictPages extends StatelessWidget {
                 onChanged: (value) {
                   context
                       .read<PredictBloc>()
-                      .add(Bmi(bmi: double.parse(value)));
+                      .add(Bmi(bmi: double.tryParse(value) ?? 0.0));
                 },
               ),
               buildPhoneTextFrom(
@@ -111,7 +110,9 @@ class PredictPages extends StatelessWidget {
                 labelText: 'ອາຍຸ',
                 hintText: 'ອາຍຸ',
                 onChanged: (value) {
-                  context.read<PredictBloc>().add(Age(age: int.parse(value)));
+                  context
+                      .read<PredictBloc>()
+                      .add(Age(age: int.tryParse(value) ?? 0));
                 },
               ),
             ],
@@ -119,23 +120,28 @@ class PredictPages extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
-            height: 60,
-            width: 400,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: SizedBox(
+              height: 60,
+              width: 400,
+              child: ElevatedButton(
+                onPressed: () {
+                  PredictController(context: context).handlePredict();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-              ),
-              child: const Text(
-                'ວິເຄາະດຽວນີ້',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                child: const Text(
+                  'ວິເຄາະດຽວນີ້',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -168,40 +174,131 @@ class PredictPages extends StatelessWidget {
         ),
         SizedBox(
           height: 60,
-          child: TextFormField(
-            inputFormatters: <TextInputFormatter>[
-              LengthLimitingTextInputFormatter(10),
-              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-            ],
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            maxLines: 1,
-            cursorColor: Colors.grey,
-            onChanged: onChanged,
-            decoration: InputDecoration(
-              prefixIconColor: MaterialStateColor.resolveWith(
-                (states) => states.contains(MaterialState.focused)
-                    ? Colors.blue
-                    : Colors.grey,
-              ),
-              hintText: hintText,
-              hintStyle: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-                color: Colors.grey,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
+          child: BlocBuilder<PredictBloc, PredictState>(
+            builder: (context, state) {
+              return TextFormField(
+                // controller: TextEditingController.fromValue(
+                //   TextEditingValue(
+                //     text: state.age.toString(),
+                //     selection: TextSelection.collapsed(
+                //       offset: state.age.toString().isEmpty
+                //           ? 0
+                //           : state.age.toString().length,
+                //     ),
+                //   ),
+                // ),
+                inputFormatters: <TextInputFormatter>[
+                  LengthLimitingTextInputFormatter(10),
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+                ],
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                maxLines: 1,
+                cursorColor: Colors.grey,
+                onChanged: onChanged,
+                decoration: InputDecoration(
+                  prefixIconColor: MaterialStateColor.resolveWith(
+                    (states) => states.contains(MaterialState.focused)
+                        ? Colors.blue
+                        : Colors.grey,
+                  ),
+                  hintText: hintText,
+                  hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildNumberTextFrom({
+    required BuildContext context,
+    required String hintText,
+    required String labelText,
+    required Function(String) onChanged,
+  }) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          labelText,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey,
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          height: 60,
+          child: BlocBuilder<PredictBloc, PredictState>(
+            builder: (context, state) {
+              return TextFormField(
+                controller: TextEditingController.fromValue(
+                  TextEditingValue(
+                    text: state.age.toString(),
+                    selection: TextSelection.collapsed(
+                      offset: state.age.toString().isEmpty
+                          ? 0
+                          : state.age.toString().length,
+                    ),
+                  ),
                 ),
-              ),
-            ),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                keyboardType: TextInputType.number,
+                maxLines: 1,
+                cursorColor: Colors.grey,
+                onChanged: onChanged,
+                decoration: InputDecoration(
+                  prefixIconColor: MaterialStateColor.resolveWith(
+                    (states) => states.contains(MaterialState.focused)
+                        ? Colors.blue
+                        : Colors.grey,
+                  ),
+                  hintText: hintText,
+                  hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],

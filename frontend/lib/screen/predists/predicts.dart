@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/common/enum/state_status.dart';
 import 'package:frontend/screen/predists/bloc/predicts_bloc.dart';
 
 class PredictsPages extends StatelessWidget {
@@ -25,6 +26,13 @@ class PredictsPages extends StatelessWidget {
       ),
       body: BlocBuilder<PredictsBloc, PredictsState>(
         builder: (context, state) {
+          if (state.status == StateStatus.loading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            );
+          }
           return ListView.builder(
               padding: const EdgeInsets.all(10),
               physics: const BouncingScrollPhysics(),
