@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
 
 class PredictPages extends StatelessWidget {
   const PredictPages({super.key});
@@ -43,75 +41,101 @@ class PredictPages extends StatelessWidget {
                 context: context,
                 labelText: 'ຈຳນວນຖືພາ',
                 hintText: 'ຈຳນວນຖືພາ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Pregnancies(pregnancies: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄ່ານ້ຳຕານ',
                 hintText: 'ຄ່ານ້ຳຕານ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Glucose(glucose: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄວາມ​ດັນ​ເລືອດ',
                 hintText: 'ຄວາມ​ດັນ​ເລືອດ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(BloodPressure(bloodPressure: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄວາມໜາຂອງຜິວໜັງ',
                 hintText: 'ຄວາມໜາຂອງຜິວໜັງ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(SkinThickness(skinThickness: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄ່າອີນຊູລິນ',
                 hintText: 'ຄ່າອີນຊູລິນ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Insulin(insulin: int.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ຄວາມສ່ຽງຈາກກຳມະພັນ',
                 hintText: 'ຄວາມສ່ຽງຈາກກຳມະພັນ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<PredictBloc>().add(DiabetesPedigreeFunction(
+                      diabetesPedigreeFunction: double.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'bmi',
                 hintText: 'bmi',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context
+                      .read<PredictBloc>()
+                      .add(Bmi(bmi: double.parse(value)));
+                },
               ),
               buildPhoneTextFrom(
                 context: context,
                 labelText: 'ອາຍຸ',
                 hintText: 'ອາຍຸ',
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<PredictBloc>().add(Age(age: int.parse(value)));
+                },
               ),
             ],
           ),
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: SizedBox(
-              height: 60,
-              width: 400,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+          SizedBox(
+            height: 60,
+            width: 400,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
-                  'ວິເຄາະດຽວນີ້',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+              ),
+              child: const Text(
+                'ວິເຄາະດຽວນີ້',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -144,54 +168,40 @@ class PredictPages extends StatelessWidget {
         ),
         SizedBox(
           height: 60,
-          child: BlocBuilder<PredictBloc, PredictState>(
-            builder: (context, state) {
-              return TextFormField(
-                controller: TextEditingController.fromValue(
-                  TextEditingValue(
-                    text: state.,
-                    selection: TextSelection.collapsed(
-                      offset: state.,
-                    ),
-                  ),
+          child: TextFormField(
+            inputFormatters: <TextInputFormatter>[
+              LengthLimitingTextInputFormatter(10),
+              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+            ],
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            maxLines: 1,
+            cursorColor: Colors.grey,
+            onChanged: onChanged,
+            decoration: InputDecoration(
+              prefixIconColor: MaterialStateColor.resolveWith(
+                (states) => states.contains(MaterialState.focused)
+                    ? Colors.blue
+                    : Colors.grey,
+              ),
+              hintText: hintText,
+              hintStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+                color: Colors.grey,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(
+                  color: Colors.grey,
                 ),
-                inputFormatters: <TextInputFormatter>[
-                  LengthLimitingTextInputFormatter(10),
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-                ],
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                cursorHeight: 25,
-                maxLines: 1,
-                cursorColor: Colors.grey,
-                onChanged: onChanged,
-                decoration: InputDecoration(
-                  prefixIconColor: MaterialStateColor.resolveWith(
-                    (states) => states.contains(MaterialState.focused)
-                        ? Colors.blue
-                        : Colors.grey,
-                  ),
-                  hintText: hintText,
-                  hintStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.grey,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                    ),
-                  ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(
+                  color: Colors.grey,
                 ),
-              );
-            },
+              ),
+            ),
           ),
         ),
       ],
