@@ -1,5 +1,9 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/controller/predicts_controller.dart';
+import 'package:frontend/global.dart';
 import 'package:frontend/routes/name.dart';
 
 class HomePages extends StatelessWidget {
@@ -54,7 +58,12 @@ class HomePages extends StatelessWidget {
               title: "ຈັດການຂໍ້ມູນ",
               iconData: Icons.manage_accounts,
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.MainManages);
+                if (Global.userService.getIsLoggedIn() == false) {
+                  Navigator.pushNamed(context, AppRoutes.Login);
+                  return;
+                } else {
+                  Navigator.pushNamed(context, AppRoutes.MainManages);
+                }
               }),
         ],
       ),
