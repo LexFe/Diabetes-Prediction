@@ -6,6 +6,8 @@ import 'package:frontend/screen/admin/admin.dart';
 import 'package:frontend/screen/admin/bloc/admin_bloc.dart';
 import 'package:frontend/screen/home/bloc/home_bloc.dart';
 import 'package:frontend/screen/home/home.dart';
+import 'package:frontend/screen/login/bloc/login_bloc.dart';
+import 'package:frontend/screen/login/login.dart';
 import 'package:frontend/screen/main_manage/bloc/main_manage_bloc.dart';
 import 'package:frontend/screen/main_manage/main_manage.dart';
 import 'package:frontend/screen/predict/bloc/predict_bloc.dart';
@@ -58,6 +60,13 @@ class AppPage {
         page: const RecommentPages(),
         bloc: BlocProvider(
           create: (_) => RecommentBloc(),
+        ),
+      ),
+      PageEntity(
+        route: AppRoutes.Login,
+        page: const LoginPages(),
+        bloc: BlocProvider(
+          create: (_) => LoginBloc(),
         ),
       ),
     ];
