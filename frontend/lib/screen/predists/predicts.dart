@@ -70,8 +70,11 @@ class _PredictsPagesState extends State<PredictsPages> {
                   );
                 }
 
-
-                
+                if (state.predictsModel.isEmpty) {
+                  return const Center(
+                    child: Text('ບໍ່ພົບຂໍ້ມູນ'),
+                  );
+                }
 
                 return ListView.builder(
                     padding: const EdgeInsets.all(10),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/controller/predicts_controller.dart';
 import 'package:frontend/global.dart';
 import 'package:frontend/routes/name.dart';
 

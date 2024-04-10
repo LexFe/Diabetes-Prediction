@@ -9,7 +9,9 @@ part 'predicts_state.dart';
 class PredictsBloc extends Bloc<PredictsEvent, PredictsState> {
   PredictsBloc() : super(const PredictsState()) {
     on<PredictsFetch>((event, emit) {
-      emit(state.copyWith(predictsModel: event.predictsModel));
+      emit(state.copyWith(
+          predictsModel: event.predictsModel,
+          predictsModelSearch: event.predictsModel));
     });
 
     on<ChangeStatus>((event, emit) {
@@ -17,11 +19,17 @@ class PredictsBloc extends Bloc<PredictsEvent, PredictsState> {
     });
 
     on<SearchPredict>((event, emit) {
-      final List<PredictsModel> predictsModel = state.predictsModel
-          .where((element) =>
-              element.name!.toLowerCase().contains(event.search.toLowerCase()))
-          .toList();
-      emit(state.copyWith(predictsModelSearch: predictsModel));
+      if (event.search.isEmpty) {
+        emit(state.copyWith(predictsModel: state.predictsModelSearch));
+        return;
+      } else {
+        final List<PredictsModel> predictsModel = state.predictsModelSearch
+            .where((element) => element.name!
+                .toLowerCase()
+                .contains(event.search.toLowerCase()))
+            .toList();
+        emit(state.copyWith(predictsModel: predictsModel));
+      }
     });
   }
 }
