@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/controller/predicts_controller.dart';
 import 'package:frontend/global.dart';
