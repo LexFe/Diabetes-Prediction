@@ -14,23 +14,46 @@ class LoginController {
     String email = state.email;
     String password = state.password;
     if (email.isEmpty || password.isEmpty) {
-      Fluttertoast.showToast(msg: 'Email and password cannot be empty');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('ກະລຸນາກວດສອບຂໍ້ມູນ'),
+        ),
+      );
       return;
     }
     if (!email.contains('@')) {
-      Fluttertoast.showToast(msg: 'Invalid email');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('ກະລຸນາໃສ່ອີເມວທີ່ຖືກຕ້ອງ'),
+        ),
+      );
       return;
     }
     if (password.length < 6) {
-      Fluttertoast.showToast(msg: 'Password must be at least 6 characters');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('ລະຫັດຜ່ານຕ້ອງ 6 ໂຕອັກສອນຂຶ້ນໄປ'),
+        ),
+      );
       return;
     } else {
+      var formData = FormData.fromMap({
+ 'name': 'wendux',
+ 'age': 25,
+ 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
+});
       Response response = await HttpUtil()
           .post('/auth', data: {'username': email, 'password': password});
       if (response.statusCode == 200) {
-        Fluttertoast.showToast(msg: 'Login success');
       } else {
-        Fluttertoast.showToast(msg: 'Login failed');
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(response.data.toString()),
+            ),
+          );
+          return;
+        }
       }
     }
   }
