@@ -6,7 +6,6 @@ class UserOut(BaseModel):
     id :int
     name : str
     phone : str
-    role : str
     email: EmailStr
 
     class Config:

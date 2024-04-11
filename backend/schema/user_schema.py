@@ -17,7 +17,6 @@ class TokenData(BaseModel):
 class UserCreate(BaseModel):
     name: str
     phone: str
-    role :str
     email: EmailStr
     password: str
 
@@ -26,7 +25,6 @@ class UserEdit(BaseModel):
     name: str
     phone: str
     email: EmailStr
-    role: str
     password: str
     
         
