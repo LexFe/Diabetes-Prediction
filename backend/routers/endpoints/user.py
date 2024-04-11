@@ -30,14 +30,14 @@ router_token = APIRouter(
 async def create_user(data :UserCreate, db: Session = Depends(get_db)):
     return await create_user_account(data, db)
 
-@router.post('/active-user',response_model=UserOut)
-async def active_user(data :UserActive, db: Session = Depends(get_db)):
-    await active_user_account(data, db)
-    return JSONResponse({"message": "Account is activated successfully."})
+# @router.post('/active-user',response_model=UserOut)
+# async def active_user(data :UserActive, db: Session = Depends(get_db)):
+#     await active_user_account(data, db)
+#     return JSONResponse({"message": "Account is activated successfully."})
 
-@router.get('/refrech' , response_model=LoginResponse,status_code=200)
-async def refrech_token(refresh_token =  Header(), db: Session = Depends(get_db)) :
-    return  await get_refredh_token(refresh_token, db)
+# @router.get('/refrech' , response_model=LoginResponse,status_code=200)
+# async def refrech_token(refresh_token =  Header(), db: Session = Depends(get_db)) :
+#     return  await get_refredh_token(refresh_token, db)
 
 
 # @router.get("/all", response_model=UserOutList, status_code=200)
