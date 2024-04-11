@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/common/enum/state_status.dart';
 import 'package:frontend/common/utils/http_utils.dart';
 import 'package:frontend/model/predicts_model.dart';
-import 'package:frontend/routes/name.dart';
 import 'package:frontend/screen/predists/bloc/predicts_bloc.dart';
 
 class PredictsController {
