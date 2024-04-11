@@ -81,10 +81,6 @@ async def get_login_token(data,session):
         raise HTTPException(status_code=400, detail="Invalid credentials")
     if not verify(data.password, user.password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
-    # if not user.is_active:
-    #     raise HTTPException(status_code=400, detail="User not active")
-    # if user.verified_at:
-    #     raise HTTPException(status_code=400, detail="User not verified")
     
     return _generate_tokens(user, session)
 
