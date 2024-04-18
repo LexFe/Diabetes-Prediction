@@ -76,10 +76,13 @@ def update_user(data: UserEdit, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == data.id).first()
     if not user:
         raise HTMLResponse(status_code=404, content="User not found.")
+    if user.email != data.email:
+        check_user = db.query(User).filter(User.email == data.email).first()
+        if check_user:
+            raise HTMLResponse(status_code=400, content="Email already exists.")
     user.name = data.name if data.name else user.name
     user.phone = data.phone if data.phone else user.phone
     user.email = data.email if data.email else user.email
-    user.role = data.role if data.role else user.role
     user.password = hash_password(data.password) if data.password else user.password
     db.commit()
     db.refresh(user)
